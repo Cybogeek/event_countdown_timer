@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Countdown Timer</title>
+    <style>
+        body {
+            background-image: url('./christmas.jpg');
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #c21919;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            text-shadow: 0 -1px 0 #ffffff, 0 1px 2px #000000;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        .countdown-container {
+            text-align: center;
+            border: 5px solid #c21919;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(233, 51, 91, 0.55), 0 0 10px #000;
+            background-color: rgba(247, 142, 142, 0.363);
+        }
+
+        .countdown {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .countdown span {
+            display: inline-block;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .countdown .hidden {
+            opacity: 0;
+        }
+
+        .idf {
+            font-size: 14px;
+            position: relative;
+            top: 25px;
+            right: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="countdown-container">
+        <h1>Event Countdown Timer</h1>
+        <div class="countdown" id="countdown">
+            <span id="days">0</span>
+            <span class="idf">Days</span>
+            <span id="hours">0</span>
+            <span class="idf">Hours</span>
+            <span id="minutes">0</span>
+            <span class="idf">Min</span>
+            <span id="seconds">0</span>
+            <span class="idf">Sec</span>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        const countDownDate = new Date("Dec 25,2024 00:00:00").getTime();
+        const counDownElement = $('#countdown');
+
+        const updatecountdown = () => {
+            const now = new Date().getTime();//here I missed the (), and it caused the error. Try Again.
+            const difference = countDownDate - now;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24)); //milliseconds *sec*minutes*hour =days
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));// simple modulus with 24 will return hours, this is explanation only.
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)); //here also simple moulus of 60 is enough.
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);// multiples of 60 thats it...
+
+            // Now lets upate the countdown
+            updateDigits("days", days);
+            updateDigits("hours", hours);
+            updateDigits("minutes", minutes);
+            updateDigits("seconds", seconds);// wait  for the code to finish then I'll write something for this function.
+
+            if (difference < 0) {
+                clearInterval(countdownInterval);// we haven't yet set the interval , so wait and keep watching.
+                counDownElement.html("EXPIRED");
+            }
+
+        };
+
+        const updateDigits = (id, value) => {
+            const digitElement = $(`#${id}`);
+            const currentDigit = parseInt(digitElement.text());
+
+            if (currentDigit !== value) {
+                digitElement.addClass("hidden");
+                setTimeout(() => {
+                    digitElement.text(value).removeClass("hidden");
+                }, 500);// 0.5 second Transition-- smooth effect for each digits. Lets Try..
+            }
+        };
+        const countdownInterval = setInterval(updatecountdown, 1000);
+        updatecountdown();
+    </script>
+</body>
+
+</html>
