@@ -13,3 +13,11 @@ Impress your audience with a feature-rich countdown timer that adds a touch of s
 
 **Tags**
 #CountdownTimer #WebDevelopment #HTML #CSS #jQuery #WebDesign #Tutorial #15MinuteChallenge
+
+-------------------------------------------------------
+**Interactive Quiz App in 15 Minutes! | HTML, CSS, JavaScript Tutorial**
+
+***Ready to create a dynamic quiz app from scratch? Join me in this quick 15-minute tutorial where we'll build a modern and attractive interactive quiz using HTML, CSS, and JavaScript! You don't need extensive coding experience – this is beginner-friendly!***
+
+**Tags**
+#HTML #CSS #JavaScript #jQuery #WebDevelopment #QuizApp #CodingTutorial #15MinuteChallenge
