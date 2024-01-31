@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <style>
+        body {
+            background-image: url('./quest.jpg');
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #ff5b32;
+        }
+
+        #quiz-container {
+            background-color: #ffffff4b;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #question-container {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        #option-container {
+            padding: 25px;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .option:hover {
+            background-color: #2980b9;
+        }
+
+        #score-container {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #result-container {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+            padding: 10px 20px;
+        }
+
+        #next-btn {
+            width: 30%;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #ff5b32;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #ffffff;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #next-btn:hover {
+            background-color: #ff4517;
+        }
+
+        .final-score {
+            font-size: 1.4rem;
+            color: rgba(240, 128, 128, 1);
+            transition: font-size 0.3s ease-in-out;
+        }
+
+        .final-score:hover {
+            font-size: 2.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="quiz-container">
+        <h1>Quiz App</h1>
+        <div id="question-container"></div>
+        <div id="option-container"></div>
+        <div id="score-container">Score: <span id="score">0</span></div>
+        <div id="result-container"></div>
+        <button type="button" id="next-btn">Next Question</button>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    //Set Some Data -- Questions, Answers to show in our Quiz App
+    const quizData = [{
+        question: "What is the capital of France?",
+        options: ["Berlin", "Paris", "London", "Madrid"],
+        correctAnswer: "Paris"
+    },
+    {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Earth", "Mars", "Jupiter", "Venus"],
+        correctAnswer: "Mars"
+    },
+    {
+        question: "What is the largest mammal in the world?",
+        options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+        correctAnswer: "Blue Whale"
+    },
+    {
+        question: "Which is the Largest Planet?",
+        options: ["Earth", "Jupiter", "Mars", "Neptune"],
+        correctAnswer: "Jupiter"
+    }
+    ];//I already prepared it for you.. Add some more questions in it...
+
+    let currentQuestion = 0;
+    let score = 0;
+    function shuffleArray(array) {
+        const shuffleArray = array.slice();
+        for (let i = shuffleArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffleArray[i], shuffleArray[j]] = [shuffleArray[j], shuffleArray[i]];// feed and swap with random value.
+        }
+        return shuffleArray;
+    }
+    function showQuestion() {
+        const questionConatiner = $('#question-container');
+        const optionContainer = $('#option-container');
+        const nextBtn = $('#next-btn');
+
+        questionConatiner.text(quizData[currentQuestion].question);
+        optionContainer.empty();
+        shuffleArray(quizData[currentQuestion].options).forEach((option, index) => {
+            const optionBtn = $('<button>')
+                .text(option)
+                .addClass('option')
+                .click(() => {
+                    checkAnswer(option);
+                    $('.option').prop("dissabled", true);
+                });
+            optionContainer.append(optionBtn);
+        });
+        nextBtn.hide();
+    }
+    function checkAnswer(selectedAnswer) {
+        const correctAnswer = quizData[currentQuestion].correctAnswer;
+        const resultContainer = $('#result-container');
+        const scoreConatiner = $('#score');
+        const nextBtn = $('#next-btn');
+
+        if (selectedAnswer === correctAnswer) {
+            resultContainer.text("Correct!");
+            score++;
+        } else {
+            resultContainer.text("Incorect. The Correct Answer is: " + correctAnswer);
+        }
+        scoreConatiner.text(score);
+        resultContainer.show();
+        nextBtn.show();
+    }
+    function nextQuestion() {
+        const resultContainer = $('#result-container');
+        resultContainer.hide();
+
+        if (currentQuestion < quizData.length - 1) {
+            currentQuestion++;
+            showQuestion();
+        } else {
+            $('#quiz-container').html("<h2>Quiz Completed!</h2> <p class='final-score'>Your Final Score is " + score + "</p>");
+        }
+    }
+
+    $(document).ready(() => {
+        showQuestion();//we will write this function soon..
+
+        $('#next-btn').click(() => {
+            nextQuestion();
+        });
+    });
+</script>
+
+</html>
