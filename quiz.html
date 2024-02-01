@@ -160,8 +160,8 @@
                 .text(option)
                 .addClass('option')
                 .click(() => {
+                     $('.option').prop("dissabled", true);
                     checkAnswer(option);
-                    $('.option').prop("dissabled", true);
                 });
             optionContainer.append(optionBtn);
         });
