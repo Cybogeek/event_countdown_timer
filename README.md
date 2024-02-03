@@ -21,3 +21,11 @@ Impress your audience with a feature-rich countdown timer that adds a touch of s
 
 **Tags**
 #HTML #CSS #JavaScript #jQuery #WebDevelopment #QuizApp #CodingTutorial #15MinuteChallenge
+
+-------------------------------------------------------
+**Love Meter Project: Calculate Your Love Percentage in 15 Minutes!**
+
+***Discover the magic of love with our entertaining Love Meter project! In this step-by-step tutorial, we'll guide you through creating a Love Meter using HTML, CSS, and jQuery. From character conversions to creative algorithms, you'll learn various ways to calculate the love percentage between two names. Grab your popcorn and let's dive into the world of coding romance together!***
+
+**Tags**
+#lovemeter #html  #css  #jquery  #codingtutorial  #webdevelopment  #funprojects  #lovecalculator #programming #javascript #programmingtips #codebreakdown #codebreakdown #codingchallenge 
